@@ -1,0 +1,1082 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>python13期的第一份报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 120%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">python13期的第一份报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> 娟娟</p>
+<p class='attribute'><strong>开始时间 : </strong> 2019-02-22 16:07:42</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:11.375651</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 38，通过 32，失败 3，错误 3，通过率= 84.21%</p>
+
+<p class='description'>前程贷测试</p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 84.21% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 3 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 32 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 38 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 16px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_invest.investTest</td>
+    <td class="text-center">5</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center">3</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',5)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_1</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse in" align="left">
+    <pre>
+    
+pt1_1: .............开始执行测试用例...............
+正则之前的数据 {"mobilephone":"${admin_mobilephone}","pwd":"${admin_pwd}"}
+/member/login
+&lt;class 'str'&gt;
+http://47.107.168.87:8080/futureloan/mvc/api/member/login
+{"status":1,"code":"10001","data":null,"msg":"登录成功"}
+正则之后的数据 {'mobilephone': '13799997779', 'pwd': '123456'}
+&lt;class 'dict'&gt;
+.............测试用例执行结束...............
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_2</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse in" align="left">
+    <pre>
+    
+pt1_2: .............开始执行测试用例...............
+正则之前的数据 {"memberId":"${admin_id}","title":"钱","amount":4000,"loanRate":"18.0","loanTerm":6,"loanDateType":0,"repaymemtWay":11,"biddingDays":10}
+/loan/add 
+&lt;class 'str'&gt;
+http://47.107.168.87:8080/futureloan/mvc/api/loan/add 
+&lt;html&gt;&lt;head&gt;&lt;title&gt;Apache Tomcat/6.0.53 - Error report&lt;/title&gt;&lt;style&gt;&lt;!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--&gt;&lt;/style&gt; &lt;/head&gt;&lt;body&gt;&lt;h1&gt;HTTP Status 404 - &lt;/h1&gt;&lt;HR size="1" noshade="noshade"&gt;&lt;p&gt;&lt;b&gt;type&lt;/b&gt; Status report&lt;/p&gt;&lt;p&gt;&lt;b&gt;message&lt;/b&gt; &lt;u&gt;&lt;/u&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;description&lt;/b&gt; &lt;u&gt;The requested resource is not available.&lt;/u&gt;&lt;/p&gt;&lt;HR size="1" noshade="noshade"&gt;&lt;h3&gt;Apache Tomcat/6.0.53&lt;/h3&gt;&lt;/body&gt;&lt;/html&gt;
+正则之后的数据 {'loanRate': '18.0', 'loanTerm': 6, 'amount': 4000, 'loanDateType': 0, 'title': '钱', 'repaymemtWay': 11, 'biddingDays': 10, 'memberId': '1114926'}
+&lt;class 'dict'&gt;
+.............测试用例执行结束...............
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_invest_3</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_3'>错误</button>
+    <div id='div_ft1_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_3'>错误</button>
+    <div id='div_ft1_3' class="collapse in" align="left">
+    <pre>
+    
+ft1_3: .............开始执行测试用例...............
+正则之前的数据 {"id":"${loanId}","status":4}                             
+/loan/audit 
+&lt;class 'str'&gt;
+.............测试用例执行结束...............
+Traceback (most recent call last):
+  File "D:\Python34\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "E:\Users\Administrator\PycharmProjects\python13_juanjuan_api_test\testcases\test_invest.py", line 37, in test_invest
+    params = json.loads(params)        #这里需要转成字典
+  File "D:\Python34\lib\json\__init__.py", line 312, in loads
+    s.__class__.__name__))
+TypeError: the JSON object must be str, not 'NoneType'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_4' class='none'>
+    <td class='errorCase'><div class='testcase'>test_invest_4</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_4'>错误</button>
+    <div id='div_ft1_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_4'>错误</button>
+    <div id='div_ft1_4' class="collapse in" align="left">
+    <pre>
+    
+ft1_4: .............开始执行测试用例...............
+正则之前的数据 {"mobilephone":"${invest_mobilephone}","pwd":"${invest_pwd"}
+/member/login
+&lt;class 'str'&gt;
+.............测试用例执行结束...............
+Traceback (most recent call last):
+  File "D:\Python34\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "E:\Users\Administrator\PycharmProjects\python13_juanjuan_api_test\testcases\test_invest.py", line 37, in test_invest
+    params = json.loads(params)        #这里需要转成字典
+  File "D:\Python34\lib\json\__init__.py", line 312, in loads
+    s.__class__.__name__))
+TypeError: the JSON object must be str, not 'NoneType'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_5' class='none'>
+    <td class='errorCase'><div class='testcase'>test_invest_5</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_5'>错误</button>
+    <div id='div_ft1_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_5'>错误</button>
+    <div id='div_ft1_5' class="collapse in" align="left">
+    <pre>
+    
+ft1_5: .............开始执行测试用例...............
+正则之前的数据 {"memberId":"${invest_id}","password":"${invest_pwd}","loanId":${loanId},"amount":400}
+/member/bidLoan 
+&lt;class 'str'&gt;
+.............测试用例执行结束...............
+Traceback (most recent call last):
+  File "D:\Python34\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "E:\Users\Administrator\PycharmProjects\python13_juanjuan_api_test\testcases\test_invest.py", line 37, in test_invest
+    params = json.loads(params)        #这里需要转成字典
+  File "D:\Python34\lib\json\__init__.py", line 312, in loads
+    s.__class__.__name__))
+TypeError: the JSON object must be str, not 'NoneType'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_login.login</td>
+    <td class="text-center">6</td>
+    <td class="text-center">3</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',6)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_1</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse in" align="left">
+    <pre>
+    
+pt2_1: ........开始测试.........
+执行第[&lt;common.do_excel.Cases object at 0x00000000040725C0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E10&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E80&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EF0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EB8&gt;, &lt;common.do_excel.Cases object at 0x0000000004029FD0&gt;]条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/login
+........测试结束.........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_2' class='none'>
+    <td class='failCase'><div class='testcase'>test_login_2</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_2'>失败</button>
+    <div id='div_ft2_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_2'>失败</button>
+    <div id='div_ft2_2' class="collapse in" align="left">
+    <pre>
+    
+ft2_2: ........开始测试.........
+执行第[&lt;common.do_excel.Cases object at 0x00000000040725C0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E10&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E80&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EF0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EB8&gt;, &lt;common.do_excel.Cases object at 0x0000000004029FD0&gt;]条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/login
+........测试结束.........
+Traceback (most recent call last):
+  File "D:\Python34\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "E:\Users\Administrator\PycharmProjects\python13_juanjuan_api_test\testcases\test_login.py", line 23, in test_login
+    raise e
+  File "E:\Users\Administrator\PycharmProjects\python13_juanjuan_api_test\testcases\test_login.py", line 19, in test_login
+    self.assertEqual(resp.text,cases.Expected)
+AssertionError: '{"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}' != '{"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}'
+- {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
+?                        ^^                     ^^^^^^^^
++ {"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}
+?                        ^^                     ^^^^^^^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_3' class='none'>
+    <td class='failCase'><div class='testcase'>test_login_3</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_3'>失败</button>
+    <div id='div_ft2_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_3'>失败</button>
+    <div id='div_ft2_3' class="collapse in" align="left">
+    <pre>
+    
+ft2_3: ........开始测试.........
+执行第[&lt;common.do_excel.Cases object at 0x00000000040725C0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E10&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E80&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EF0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EB8&gt;, &lt;common.do_excel.Cases object at 0x0000000004029FD0&gt;]条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/login
+........测试结束.........
+Traceback (most recent call last):
+  File "D:\Python34\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "E:\Users\Administrator\PycharmProjects\python13_juanjuan_api_test\testcases\test_login.py", line 23, in test_login
+    raise e
+  File "E:\Users\Administrator\PycharmProjects\python13_juanjuan_api_test\testcases\test_login.py", line 19, in test_login
+    self.assertEqual(resp.text,cases.Expected)
+AssertionError: '{"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}' != '{"status":0,"code":"20103","data":null,"msg":"密码不能为空"}'
+- {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
+?                        ^^                     ----  ^^
++ {"status":0,"code":"20103","data":null,"msg":"密码不能为空"}
+?                        ^^                       ^^^^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_4</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse in" align="left">
+    <pre>
+    
+pt2_4: ........开始测试.........
+执行第[&lt;common.do_excel.Cases object at 0x00000000040725C0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E10&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E80&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EF0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EB8&gt;, &lt;common.do_excel.Cases object at 0x0000000004029FD0&gt;]条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/login
+........测试结束.........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_5</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse in" align="left">
+    <pre>
+    
+pt2_5: ........开始测试.........
+执行第[&lt;common.do_excel.Cases object at 0x00000000040725C0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E10&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E80&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EF0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EB8&gt;, &lt;common.do_excel.Cases object at 0x0000000004029FD0&gt;]条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/login
+........测试结束.........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_6' class='none'>
+    <td class='failCase'><div class='testcase'>test_login_6</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_6'>失败</button>
+    <div id='div_ft2_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_6'>失败</button>
+    <div id='div_ft2_6' class="collapse in" align="left">
+    <pre>
+    
+ft2_6: ........开始测试.........
+执行第[&lt;common.do_excel.Cases object at 0x00000000040725C0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E10&gt;, &lt;common.do_excel.Cases object at 0x0000000004029E80&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EF0&gt;, &lt;common.do_excel.Cases object at 0x0000000004029EB8&gt;, &lt;common.do_excel.Cases object at 0x0000000004029FD0&gt;]条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/login
+........测试结束.........
+Traceback (most recent call last):
+  File "D:\Python34\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "E:\Users\Administrator\PycharmProjects\python13_juanjuan_api_test\testcases\test_login.py", line 23, in test_login
+    raise e
+  File "E:\Users\Administrator\PycharmProjects\python13_juanjuan_api_test\testcases\test_login.py", line 19, in test_login
+    self.assertEqual(resp.text,cases.Expected)
+AssertionError: '{"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}' != '{"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}'
+- {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
+?                        ^^                     ^^^^^^^^
++ {"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}
+?                        ^^                     ^^^^^^^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_recharge.rechrge</td>
+    <td class="text-center">16</td>
+    <td class="text-center">16</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',16)" class="detail" id='c3'>详细</a></td>
+</tr>
+
+<tr id='pt3_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_01</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse in" align="left">
+    <pre>
+    
+pt3_1: .........开始执行测试用例...........
+开始执行第1条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/login
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_02</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse in" align="left">
+    <pre>
+    
+pt3_2: .........开始执行测试用例...........
+开始执行第2条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_03</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse in" align="left">
+    <pre>
+    
+pt3_3: .........开始执行测试用例...........
+开始执行第3条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_04</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse in" align="left">
+    <pre>
+    
+pt3_4: .........开始执行测试用例...........
+开始执行第4条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_05</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse in" align="left">
+    <pre>
+    
+pt3_5: .........开始执行测试用例...........
+开始执行第5条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_06</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse in" align="left">
+    <pre>
+    
+pt3_6: .........开始执行测试用例...........
+开始执行第6条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_07</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_7'>通过</button>
+    <div id='div_pt3_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_7'>通过</button>
+    <div id='div_pt3_7' class="collapse in" align="left">
+    <pre>
+    
+pt3_7: .........开始执行测试用例...........
+开始执行第7条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_08</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_8'>通过</button>
+    <div id='div_pt3_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_8'>通过</button>
+    <div id='div_pt3_8' class="collapse in" align="left">
+    <pre>
+    
+pt3_8: .........开始执行测试用例...........
+开始执行第8条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_09</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_9'>通过</button>
+    <div id='div_pt3_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_9'>通过</button>
+    <div id='div_pt3_9' class="collapse in" align="left">
+    <pre>
+    
+pt3_9: .........开始执行测试用例...........
+开始执行第9条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_10</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_10'>通过</button>
+    <div id='div_pt3_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_10'>通过</button>
+    <div id='div_pt3_10' class="collapse in" align="left">
+    <pre>
+    
+pt3_10: .........开始执行测试用例...........
+开始执行第10条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_11</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_11'>通过</button>
+    <div id='div_pt3_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_11'>通过</button>
+    <div id='div_pt3_11' class="collapse in" align="left">
+    <pre>
+    
+pt3_11: .........开始执行测试用例...........
+开始执行第11条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_12</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_12'>通过</button>
+    <div id='div_pt3_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_12'>通过</button>
+    <div id='div_pt3_12' class="collapse in" align="left">
+    <pre>
+    
+pt3_12: .........开始执行测试用例...........
+开始执行第12条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_13</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_13'>通过</button>
+    <div id='div_pt3_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_13'>通过</button>
+    <div id='div_pt3_13' class="collapse in" align="left">
+    <pre>
+    
+pt3_13: .........开始执行测试用例...........
+开始执行第13条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_14</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_14'>通过</button>
+    <div id='div_pt3_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_14'>通过</button>
+    <div id='div_pt3_14' class="collapse in" align="left">
+    <pre>
+    
+pt3_14: .........开始执行测试用例...........
+开始执行第14条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_15</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_15'>通过</button>
+    <div id='div_pt3_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_15'>通过</button>
+    <div id='div_pt3_15' class="collapse in" align="left">
+    <pre>
+    
+pt3_15: .........开始执行测试用例...........
+开始执行第15条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_rechrge_16</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_16'>通过</button>
+    <div id='div_pt3_16' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_16'>通过</button>
+    <div id='div_pt3_16' class="collapse in" align="left">
+    <pre>
+    
+pt3_16: .........开始执行测试用例...........
+开始执行第16条用例
+http://47.107.168.87:8080/futureloan/mvc/api/member/recharge
+.........测试用例执行结束...........
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_register.register</td>
+    <td class="text-center">11</td>
+    <td class="text-center">11</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',11)" class="detail" id='c4'>详细</a></td>
+</tr>
+
+<tr id='pt4_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_01_输入正确的手机号和手机密码</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_1'>通过</button>
+    <div id='div_pt4_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_1'>通过</button>
+    <div id='div_pt4_1' class="collapse in" align="left">
+    <pre>
+    
+pt4_1: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_02_输入10位的手机号</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_2'>通过</button>
+    <div id='div_pt4_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_2'>通过</button>
+    <div id='div_pt4_2' class="collapse in" align="left">
+    <pre>
+    
+pt4_2: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_03_输入12位的手机号</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_3'>通过</button>
+    <div id='div_pt4_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_3'>通过</button>
+    <div id='div_pt4_3' class="collapse in" align="left">
+    <pre>
+    
+pt4_3: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_04_手机号码为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_4'>通过</button>
+    <div id='div_pt4_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_4'>通过</button>
+    <div id='div_pt4_4' class="collapse in" align="left">
+    <pre>
+    
+pt4_4: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_05_密码为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_5'>通过</button>
+    <div id='div_pt4_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_5'>通过</button>
+    <div id='div_pt4_5' class="collapse in" align="left">
+    <pre>
+    
+pt4_5: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_06_重复注册</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_6'>通过</button>
+    <div id='div_pt4_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_6'>通过</button>
+    <div id='div_pt4_6' class="collapse in" align="left">
+    <pre>
+    
+pt4_6: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_07_输入5位的密码</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_7'>通过</button>
+    <div id='div_pt4_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_7'>通过</button>
+    <div id='div_pt4_7' class="collapse in" align="left">
+    <pre>
+    
+pt4_7: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_08_输入19位的密码</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_8'>通过</button>
+    <div id='div_pt4_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_8'>通过</button>
+    <div id='div_pt4_8' class="collapse in" align="left">
+    <pre>
+    
+pt4_8: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_09_输入6位的密码</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_9'>通过</button>
+    <div id='div_pt4_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_9'>通过</button>
+    <div id='div_pt4_9' class="collapse in" align="left">
+    <pre>
+    
+pt4_9: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_10_输入18位的密码</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_10'>通过</button>
+    <div id='div_pt4_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_10'>通过</button>
+    <div id='div_pt4_10' class="collapse in" align="left">
+    <pre>
+    
+pt4_10: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_11_输入12位的密码</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_11'>通过</button>
+    <div id='div_pt4_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_11'>通过</button>
+    <div id='div_pt4_11' class="collapse in" align="left">
+    <pre>
+    
+pt4_11: http://47.107.168.87:8080/futureloan/mvc/api/member/register
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>38</td>
+    <td>32</td>
+    <td>3</td>
+    <td>3</td>
+    <td>通过率：84.21%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>

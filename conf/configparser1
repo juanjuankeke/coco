@@ -1,0 +1,30 @@
+[http]
+url=http://test.lemonban.com/futureloan/mvc/api
+
+
+[sql]
+sql_1=SELECT MAX(MobilePhone) FROM future.member WHERE MobilePhone LIKE '136%%'
+host=47.107.168.87
+port=3306
+
+user=python
+password=python666
+
+[admin]
+memberId=1114926
+mobilephone=13799997779
+pwd=123456
+
+[loan_id]
+id=11642
+
+[invest]
+invest_id=1116896
+invest_mobilephone=13999997779
+invest_pwd=123456
+loanId=11642
+
+[log]
+ste_level = DEBUG
+out_level = INFO
+console_level = INFO
